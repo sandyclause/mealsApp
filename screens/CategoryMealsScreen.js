@@ -4,9 +4,6 @@ import {CATEGORIES} from '../data/dummy-data';
 import CategoriesScreen from './CategoriesScreen';
 
 const CategoryMealsScreen = props => {
-  const categoryId = props.navigation.getParam('categoryId');
-
-  const selectedCategory = CATEGORIES.find(cat => cat.id === categoryId);
 
   return (
     <View style={styles.screen}>
