@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, Button } from 'react-native';
+import { ScrollView, View, Text, StyleSheet, Button, Image } from 'react-native';
 import { MEALS } from '../data/dummy-data';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 import HeaderButton from '../components/HeaderButton';
@@ -9,15 +9,18 @@ const MealDetailScreen = props => {
   const selectedMeal = MEALS.find(meal => meal.id === mealId);
 
   return (
-    <View style={styles.screen}>
-      <Text>{selectedMeal.title}</Text>
-      <Button
-        title='go back to categories'
-        onPress={() => {
-          props.navigation.popToTop()
-        }}
-      />
-    </View>
+    <ScrollView>
+      <Image source={{uri: selectedMeal.imageUrl}} style={styles.image} />
+      <View style={styles.details}>
+        <Text>{selectedMeal.duration}m</Text>
+        <Text>{selectedMeal.complexity.toUpperCase()}</Text>
+        <Text>{selectedMeal.affordability.toUpperCase()}</Text>
+      </View>
+      <Text style={styles.title}>Ingredients</Text>
+      <Text>List of ingredients...</Text>
+      <Text style={styles.title}>Steps</Text>
+      <Text>List of steps...</Text>
+    </ScrollView>
   )
 };
 
@@ -44,7 +47,20 @@ MealDetailScreen.navigationOptions = (navigationData) => {
 }
 
 const styles = StyleSheet.create({
-
+  image: {
+    width: '100%',
+    height: 200
+  },
+  details: {
+    flexDirection: 'row',
+    padding: 15,
+    justifyContent: 'space-around'
+  },
+  title: {
+    fontFamily: 'open-sans-bold',
+    fontSize: 22,
+    textAlign: 'center'
+  }
 });
 
  export default MealDetailScreen;
