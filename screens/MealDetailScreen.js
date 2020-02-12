@@ -4,6 +4,12 @@ import { MEALS } from '../data/dummy-data';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 import HeaderButton from '../components/HeaderButton';
 
+const ListItem = props => {
+  return <View style={styles.ListItem}>
+    <Text>{props.children}</Text>
+  </View>
+}
+
 const MealDetailScreen = props => {
   const mealId = props.navigation.getParam('mealId');
   const selectedMeal = MEALS.find(meal => meal.id === mealId);
@@ -17,9 +23,17 @@ const MealDetailScreen = props => {
         <Text>{selectedMeal.affordability.toUpperCase()}</Text>
       </View>
       <Text style={styles.title}>Ingredients</Text>
-      <Text>List of ingredients...</Text>
+      {
+        selectedMeal.ingredients.map((ingredient) => {
+          return <ListItem key={ingredient}>{ingredient}</ListItem>
+        })
+      }
       <Text style={styles.title}>Steps</Text>
-      <Text>List of steps...</Text>
+      {
+        selectedMeal.steps.map((step) => {
+          return <ListItem key={step}>{step}</ListItem>
+        })
+      }
     </ScrollView>
   )
 };
@@ -60,6 +74,13 @@ const styles = StyleSheet.create({
     fontFamily: 'open-sans-bold',
     fontSize: 22,
     textAlign: 'center'
+  },
+  ListItem: {
+    marginVertical: 10,
+    marginHorizontal: 20,
+    borderColor: '#ccc',
+    borderWidth: 1,
+    padding: 10,
   }
 });
 
